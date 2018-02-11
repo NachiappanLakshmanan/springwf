@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<!-- Executed when webFlow is triggered -->
+	<on-start>
+		<!-- demohandler is java class available through annotated Demohandler.java 
+			class.here we are calling it’s initFlow() method. -->
+		<evaluate expression="demohandler.initFlow()" result="flowScope.userBean" />
+	</on-start>
+
+	<!-- if not specified the first view state is the starting state -->
+	<view-state id="start" view="input" model="flowScope.userBean">
+		<transition on="submit" to="getDetails" />
+	</view-state>
+
+
+    <action-state id="getDetails">
+		<evaluate expression="demohandler.display()" ></evaluate>
+		<transition on="success" to="displayall" />
+		<transition on="failure" to="displayempty" />
+	</action-state>
+	
+	<view-state id="displayall" view="displayAll" model="flowScope.userBean">
+		<on-entry>	<evaluate expression="demohandler.getobject()" result="flowScope.userBean"></evaluate></on-entry>
+			<transition on="submit" to="start" />
+	</view-state>
+		<view-state id="displayempty" view="displayempty" model="flowScope.userBean">
+		
+			<transition on="submit" to="start" />
+	</view-state>
+	
+	
+	
+
+	
+
+	
+
+	<!-- these events are available in every state -->
+	<global-transitions>
+		<transition on="getByArea" to="displaybyarea" />
+		<transition on="error" to="toException" />
+	</global-transitions>
+</flow>
