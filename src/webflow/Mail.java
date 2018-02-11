@@ -72,7 +72,7 @@ import javax.servlet.http.HttpServlet;
 						Transport trans=session.getTransport("smtp");
 						
 					
-						trans.connect("smtp.gmail.com","nachu.l.1204@gmail.com","saiIchidam1");
+						trans.connect("smtp.gmail.com","nachu.l.1204@gmail.com","dummy");
 						trans.sendMessage(mail, mail.getAllRecipients());
 						System.out.println("Message Sent Successfully");
 					}
